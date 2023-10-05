@@ -1,1 +1,1 @@
-# KIT_ML_EmotionRecognition
+# Projektpraktikum Kognitive Automobile und Roboter (KIT)
