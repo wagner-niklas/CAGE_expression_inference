@@ -1,4 +1,4 @@
-# KIT
+# KIT (Karlsruhe)
 
 from Classificator import classificator
 
