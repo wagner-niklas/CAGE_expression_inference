@@ -1,3 +1,5 @@
+# KIT
+
 from Classificator import classificator
 
 if __name__ == "__main__":
