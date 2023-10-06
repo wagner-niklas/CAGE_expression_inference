@@ -2,11 +2,12 @@
 
 import os
 import cv2
+from own_types import to_dict, to_faces
 
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
 
 # from fer import Video
-from fer import FER  # noqa: E402
+from fer import FER  # type: ignore # noqa: E402
 
 
 def classificator():
@@ -34,12 +35,12 @@ def classificator():
             # dominant_emotion, emotion_score = emo_detector.top_emotion(frame)
 
             # Detect faces in the frame
-            faces = emo_detector.detect_emotions(frame)
+            faces = to_faces(emo_detector.detect_emotions(frame))
 
             for face in faces:
                 x, y, w, h = face["box"]  # Get the face bounding box coordinates
                 dominant_emotion, emotion_score = sorted(
-                    face["emotions"].items(), key=lambda t: t[1], reverse=True
+                    to_dict(face["emotions"]).items(), key=lambda t: t[1], reverse=True
                 )[0]
 
                 # Draw a rectangle around the detected face
