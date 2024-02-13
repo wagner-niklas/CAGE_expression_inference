@@ -25,8 +25,6 @@ valid_annotations_path = "~/Spielwiese/affectnet/val_set_annotation_without_lnd.
 train_annotations_df = pd.read_csv(train_annotations_path)
 valid_annotations_df = pd.read_csv(valid_annotations_path)
 
-train_annotations_df = train_annotations_df[train_annotations_df['exp'] != 7]
-valid_annotations_df = valid_annotations_df[valid_annotations_df['exp'] != 7]
 
 exp_counts_train = train_annotations_df['exp'].value_counts().sort_index() # Remove contempt for the AffectNet-7 version
 exp_counts_valid = valid_annotations_df['exp'].value_counts().sort_index()
@@ -52,7 +50,7 @@ label_mapping = {
     'Fear': 4,
     'Disgust': 5,
     'Anger': 6,
-    #'Contempt' :7,
+    'Contempt' :7,
 }
 
 # **** Create dataset and data loaders ****
@@ -119,14 +117,13 @@ MODEL.classifier = nn.Sequential(
             nn.LayerNorm(block_channels),
             nn.Linear(block_channels, block_channels),
             nn.Tanh(),
-            nn.Linear(block_channels, 9, bias=False),
+            nn.Linear(block_channels, 10, bias=False),
         )
 MODEL.to(DEVICE) # Put the model to the GPU
 
 # Define (weighted) loss function
-#weights = torch.tensor([0.015605, 0.008709, 0.046078, 0.083078, 0.185434, 0.305953, 0.046934, 0.30821])
-weights7 = torch.tensor([0.022600, 0.012589, 0.066464, 0.120094, 0.265305,	0.444943, 0.068006])
-criterion_cls = nn.CrossEntropyLoss(weights7.to(DEVICE))
+weights = torch.tensor([0.015605, 0.008709, 0.046078, 0.083078, 0.185434, 0.305953, 0.046934, 0.30821])
+criterion_cls = nn.CrossEntropyLoss(weights.to(DEVICE))
 criterion_cls_val = nn.CrossEntropyLoss()   # Use two loss functions, as the validation dataset is balanced
 criterion_reg = nn.MSELoss()
 
@@ -147,8 +144,8 @@ for epoch in range(NUM_EPOCHS):
         optimizer.zero_grad()
         with torch.autocast(device_type='cuda', dtype=torch.float16):
             outputs = MODEL(images)
-            outputs_cls = outputs[:, :7]
-            outputs_reg = outputs[:, 7:]
+            outputs_cls = outputs[:, :8]
+            outputs_reg = outputs[:, 8:]
             loss = criterion_cls(outputs_cls.cuda(), classes.cuda()) + 5 * criterion_reg(outputs_reg.cuda() , labels.cuda())
             scaler.scale(loss).backward()
             scaler.step(optimizer)
@@ -170,8 +167,8 @@ for epoch in range(NUM_EPOCHS):
         for images, classes, labels in valid_loader:
             images, classes, labels = images.to(DEVICE), classes.to(DEVICE), labels.to(DEVICE)
             outputs = MODEL(images)
-            outputs_cls = outputs[:, :7]
-            outputs_reg = outputs[:, 7:]
+            outputs_cls = outputs[:, :8]
+            outputs_reg = outputs[:, 8:]
             loss = criterion_cls_val(outputs_cls.cuda(), classes.cuda()) + 5 * criterion_reg(outputs_reg.cuda() , labels.cuda())
             valid_loss += loss.item()
             _, predicted = torch.max(outputs_cls, 1)
@@ -187,12 +184,12 @@ for epoch in range(NUM_EPOCHS):
     if(valid_loss < best_valid_loss):
         best_valid_loss = valid_loss
         print(f"Saving model at epoch {epoch+1}")
-        torch.save(MODEL.state_dict(), 'best_model_affectnet_improved7VA.pt') # Save the best model
+        torch.save(MODEL.state_dict(), 'best_model_affectnet_improved8VA.pt') # Save the best model
 
 # **** Test the model performance for classification ****
 
 # Set the model to evaluation mode
-MODEL.load_state_dict(torch.load('best_model_affectnet_improved7VA.pt'))
+MODEL.load_state_dict(torch.load('best_model_affectnet_improved8VA.pt'))
 MODEL.to(DEVICE)
 MODEL.eval()
 
@@ -207,10 +204,10 @@ with torch.no_grad():
         images, classes, labels = images.to(DEVICE), classes.to(DEVICE), labels.to(DEVICE)
 
         outputs = MODEL(images)
-        outputs_cls = outputs[:, :7]
-        outputs_reg = outputs[:, 7:]
+        outputs_cls = outputs[:, :8]
+        outputs_reg = outputs[:, 8:]
 
-        _, predicted_cls = torch.max(outputs_cls, 1)
+        _, predicted_cls = torch.max(outputs, 1)
 
         all_labels_cls.extend(classes.cpu().numpy())
         all_predicted_cls.extend(predicted_cls.cpu().numpy())
@@ -225,7 +222,7 @@ accuracy_cls = (np.array(all_labels_cls) == np.array(all_predicted_cls)).mean()
 print(f'Test Accuracy on Classification: {accuracy_cls * 100:.2f}%')
 
 # Print accuracy per class using the label_mapping and map labels
-class_names = ['Neutral', 'Happy', 'Sad', 'Suprise', 'Fear', 'Disgust', 'Anger']
+class_names = ['Neutral', 'Happy', 'Sad', 'Suprise', 'Fear', 'Disgust', 'Anger', 'Contempt']
 mapped_labels = [label_mapping[name] for name in class_names]
 
 # Get a classification report 

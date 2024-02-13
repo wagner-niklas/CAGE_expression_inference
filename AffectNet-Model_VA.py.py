@@ -25,9 +25,6 @@ valid_annotations_path = "~/Spielwiese/affectnet/val_set_annotation_without_lnd.
 train_annotations_df = pd.read_csv(train_annotations_path)
 valid_annotations_df = pd.read_csv(valid_annotations_path)
 
-train_annotations_df = train_annotations_df[train_annotations_df['exp'] != 7]
-valid_annotations_df = valid_annotations_df[valid_annotations_df['exp'] != 7]
-
 exp_counts_train = train_annotations_df['exp'].value_counts().sort_index() # Remove contempt for the AffectNet-7 version
 exp_counts_valid = valid_annotations_df['exp'].value_counts().sort_index()
 
@@ -82,7 +79,7 @@ class CustomDataset(Dataset):
         if self.transform:
             image = self.transform(image)
         
-        return image, classes, labels
+        return image,  labels
     
     def balance_dataset(self):
         balanced_df = self.dataframe.groupby('exp', group_keys=False).apply(lambda x: x.sample(self.dataframe['exp'].value_counts().min()))
@@ -119,7 +116,7 @@ MODEL.classifier = nn.Sequential(
             nn.LayerNorm(block_channels),
             nn.Linear(block_channels, block_channels),
             nn.Tanh(),
-            nn.Linear(block_channels, 9, bias=False),
+            nn.Linear(block_channels, 2, bias=False),
         )
 MODEL.to(DEVICE) # Put the model to the GPU
 
@@ -142,57 +139,42 @@ for epoch in range(NUM_EPOCHS):
     MODEL.train()
     total_train_correct = 0
     total_train_samples = 0
-    for images, classes, labels in tqdm(train_loader, desc ="Epoch train_loader progress"):
-        images, classes, labels = images.to(DEVICE), classes.to(DEVICE), labels.to(DEVICE)
+    for images,  labels in tqdm(train_loader, desc ="Epoch train_loader progress"):
+        images,  labels = images.to(DEVICE), labels.to(DEVICE)
         optimizer.zero_grad()
         with torch.autocast(device_type='cuda', dtype=torch.float16):
-            outputs = MODEL(images)
-            outputs_cls = outputs[:, :7]
-            outputs_reg = outputs[:, 7:]
-            loss = criterion_cls(outputs_cls.cuda(), classes.cuda()) + 5 * criterion_reg(outputs_reg.cuda() , labels.cuda())
+            outputs_reg = MODEL(images)
+            loss = 5 * criterion_reg(outputs_reg.cuda() , labels.cuda())
             scaler.scale(loss).backward()
             scaler.step(optimizer)
             scaler.update()
             lr_scheduler.step()
             current_lr = optimizer.param_groups[0]['lr']
-
-        _, train_predicted = torch.max(outputs_cls, 1)
-        total_train_samples += classes.size(0)
-        total_train_correct += (train_predicted == classes).sum().item()
-        
-    train_accuracy = (total_train_correct / total_train_samples) * 100
     
     MODEL.eval()
     valid_loss = 0.0
     correct = 0
     total = 0
     with torch.no_grad():
-        for images, classes, labels in valid_loader:
-            images, classes, labels = images.to(DEVICE), classes.to(DEVICE), labels.to(DEVICE)
-            outputs = MODEL(images)
-            outputs_cls = outputs[:, :7]
-            outputs_reg = outputs[:, 7:]
-            loss = criterion_cls_val(outputs_cls.cuda(), classes.cuda()) + 5 * criterion_reg(outputs_reg.cuda() , labels.cuda())
+        for images,  labels in valid_loader:
+            images, labels = images.to(DEVICE), labels.to(DEVICE)
+            outputs_reg = MODEL(images)
+            loss = 5 * criterion_reg(outputs_reg.cuda() , labels.cuda())
             valid_loss += loss.item()
-            _, predicted = torch.max(outputs_cls, 1)
-            total += classes.size(0)
-            correct += (predicted == classes).sum().item()
             
     
     print(f"Epoch [{epoch+1}/{NUM_EPOCHS}] - "
-          f"Validation Loss: {valid_loss/len(valid_loader):.4f}, "
-          f"Validation Accuracy: {(correct/total)*100:.2f}%"
-          f", Training Accuracy: {train_accuracy:.2f}%, ")
+          f"Validation Loss: {valid_loss/len(valid_loader):.4f}, ")
 
     if(valid_loss < best_valid_loss):
         best_valid_loss = valid_loss
         print(f"Saving model at epoch {epoch+1}")
-        torch.save(MODEL.state_dict(), 'best_model_affectnet_improved7VA.pt') # Save the best model
+        torch.save(MODEL.state_dict(), 'best_model_affectnet_improvedVA.pt') # Save the best model
 
 # **** Test the model performance for classification ****
 
 # Set the model to evaluation mode
-MODEL.load_state_dict(torch.load('best_model_affectnet_improved7VA.pt'))
+MODEL.load_state_dict(torch.load('best_model_affectnet_improvedVA.pt'))
 MODEL.to(DEVICE)
 MODEL.eval()
 
@@ -206,31 +188,13 @@ with torch.no_grad():
     for images, classes, labels in iter(valid_loader):
         images, classes, labels = images.to(DEVICE), classes.to(DEVICE), labels.to(DEVICE)
 
-        outputs = MODEL(images)
-        outputs_cls = outputs[:, :7]
-        outputs_reg = outputs[:, 7:]
-
-        _, predicted_cls = torch.max(outputs_cls, 1)
-
-        all_labels_cls.extend(classes.cpu().numpy())
-        all_predicted_cls.extend(predicted_cls.cpu().numpy())
+        outputs_reg = MODEL(images)
 
         # Append to the lists --> Regression
         true_values = labels.cpu().numpy()
         predicted_values = outputs_reg.cpu().numpy()
         all_true_values.extend(true_values)
         all_predicted_values.extend(predicted_values)
-
-accuracy_cls = (np.array(all_labels_cls) == np.array(all_predicted_cls)).mean()
-print(f'Test Accuracy on Classification: {accuracy_cls * 100:.2f}%')
-
-# Print accuracy per class using the label_mapping and map labels
-class_names = ['Neutral', 'Happy', 'Sad', 'Suprise', 'Fear', 'Disgust', 'Anger']
-mapped_labels = [label_mapping[name] for name in class_names]
-
-# Get a classification report 
-classification_rep = classification_report(all_labels_cls, all_predicted_cls, labels=mapped_labels, target_names=class_names, zero_division=0.0)
-print("Classification Report:\n", classification_rep)
 
 # Calculate regression metrics
 def concordance_correlation_coefficient(true_values, predicted_values):
