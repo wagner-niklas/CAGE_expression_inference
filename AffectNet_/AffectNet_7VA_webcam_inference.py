@@ -1,4 +1,3 @@
-# from fer import FER
 import cv2
 import torchvision.models as models
 import torch.nn as nn
