@@ -9,8 +9,13 @@ As autonomous vehicle technology revolutionizes transportation, ensuring passeng
 ### Tasks of this project:
 
 [1] Implement live video emotion guessing discrete
+
 [2] Extent code to guess the continuous values of the circumplex model of affect
+
 [3] Test model performance on AffectNet and EMOTIC
+
 [3] Adapt live code to recognize emotions from multiple faces at the same time and the seat they are sitting in (Seat 1, 2 or 3)
+
 [4] Live test emotion recognition on persons watching a video
+
 [5] Research methods for validating and improving results for future work
