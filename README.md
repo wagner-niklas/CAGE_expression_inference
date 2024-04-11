@@ -28,7 +28,7 @@ python3 AffectNet_7VA_webcam_inference.py
 
 If you want to train / alter the models you can run one of the python scripts in the directory. 
 To run the train scripts, make sure to you have the datasets of EMOTIC[[1]](#1) and AffectNet[[2]](#2) downloaded and in saved the right directory.
-The Datasets are not publically available and access has to be requested (EMOTIC, [2019](https://s3.sunai.uoc.edu/emotic/download.html)) (AffectNet, [2017](http://mohammadmahoor.com/affectnet/))
+The Datasets are not publically available and access has to be requested ([EMOTIC, 2019](https://s3.sunai.uoc.edu/emotic/download.html)) ([AffectNet, 2017](http://mohammadmahoor.com/affectnet/))
 
 
 
