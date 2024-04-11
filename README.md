@@ -1,10 +1,14 @@
-# Projektpraktikum Kognitive Automobile und Roboter (KIT)
+# Circumplex Affect Guided Emotion Inference 
 
-# Realtime Emotion Guessing of Autonomous Vehicle Passengers Supported By The Circumplex Model
+# Realtime Emotion Inference Supported By The Circumplex Model Utilizing Expression Recognition
 
-### Keywords: Autonomous driving, User experience, Emotion recognition, Supervised Learning, Computer Vision, Data Set Comparison
+### Keywords: User experience, Emotion Inference, FER, Expression Recgonition, Emotion Recognition, Supervised Learning, Computer Vision, Data Set Comparison, Autonomous driving
+
+If you use this repository or any of its contents please cite our Paper: 
+CAGE: Circumplex Affect Guided Emotion Inference
+
 ### Abstract: 
-As autonomous vehicle technology revolutionizes transportation, ensuring passenger comfort and safety remains paramount. In this paper, we propose a predictive facial emotion guessing model tailored for users of an autonomous vehicle bus-shuttle. Using a small-scaled model architecture, we train a custom model enabled by multi-task learning to estimate discrete emotions and the values of the continuous circumplex model - valence and arousal. Within the scope of our research, our proposed architecture is applied on the two common datasets AffectNet and EMOTIC, in search for a more suitable approach.
+Understanding emotions is a task of interest across multiple disciplines, especially for improving user experiences. Contrary to the common perception, it has been shown that emotions are not discrete entities but instead exist along a continuum. People understand discrete emotions differently due to a variety of factors, including cultural background, individual experiences and cognitive biases. Therefore, most approaches to emotion understanding, particularly those relying on discrete categories, are inherently biased. In this paper, we present a comparative indepth analysis of two common datasets (AffectNet and EMOTIC) equipped with the components of the circumplex model of affect. Further, we propose a model for prediction of facial expression tailored for lightweight applications. Using a small-scaled MaxViT-based model architecture, we evaluate the impact of discrete emotion category labels in training with the continuous valence and arousal labels. We show that considering valence and arousal in addition to discrete category labels helps to significantly improve emotion prediction. The proposed model outperforms the current state-of-the-art models on AffectNet, establishing it as the best-performing model for inferring valence and arousal achieving a 7% lower RMSE.
 
 ### Model inference on a video: 
 ![](https://github.com/wagner-niklas/KIT_FacialEmotionRecognition/blob/main/Honnold_AffectNet7VA_short.gif)
