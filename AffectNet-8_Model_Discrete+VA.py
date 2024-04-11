@@ -38,7 +38,7 @@ for exp_value in range(7):
 # Set parameters
 BATCHSIZE = 128
 NUM_EPOCHS = 25
-LR = 4e-5
+LR = 5e-5
 MODEL = models.maxvit_t(weights='DEFAULT')
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
