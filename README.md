@@ -1,8 +1,8 @@
-# Circumplex Affect Guided Emotion Inference 
+# Circumplex Affect Guided Emotion Inference (CAGE)
 
-# Realtime Emotion Inference Supported By The Circumplex Model Utilizing Expression Recognition
+## Realtime Emotion Inference Supported By The Circumplex Model Utilizing Expression Recognition
 
-### Keywords: User experience, Emotion Inference, FER, Expression Recgonition, Emotion Recognition, Supervised Learning, Computer Vision, Data Set Comparison, Autonomous driving
+### Keywords: User experience, Expression Inference, FER, Expression Recgonition, Emotion Recognition, Supervised Learning, Computer Vision, Data Set Comparison, Autonomous driving
 
 If you use this repository or any of its contents please cite our Paper: 
 CAGE: Circumplex Affect Guided Emotion Inference
@@ -13,16 +13,39 @@ Understanding emotions is a task of interest across multiple disciplines, especi
 ### Model inference on a video: 
 ![](https://github.com/wagner-niklas/KIT_FacialEmotionRecognition/blob/main/Honnold_AffectNet7VA_short.gif)
 
+
+### Usage:
+To run the version with our best performing model simply cd into the project directory and run: 
+Install requirements: 
+```
+pip install -r requirements.txt
+```
+
+Webcam Expression Inference
+```
+python3 AffectNet_7VA_webcam_inference.py 
+```
+
+If you want to train / alter the models you can run one of the python scripts in the directory. 
+To run the train scripts, make sure to you have the datasets of EMOTIC[[1]](#1) and AffectNet[[2]](#2) downloaded and in saved the right directory.
+The Datasets are not publically available and access has to be requested (EMOTIC, [2019](https://s3.sunai.uoc.edu/emotic/download.html)) (AffectNet, [2017](http://mohammadmahoor.com/affectnet/))
+
+
+
+<a id="1">[1]</a> 
+R. Kosti, J.M. Álvarez, A. Recasens and A. Lapedriza, "Context based emotion recognition using emotic dataset", IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI), 2019.
+
+<a id="2">[2]</a> 
+Ali Mollahosseini, Behzad Hasani and Mohammad H. Mahoor, "AffectNet: A Database for Facial Expression, Valence, and Arousal Computing in the Wild," in IEEE Transactions on Affective Computing, vol. 10, no. 1, pp. 18-31, 1 Jan.-March 2019, doi: 10.1109/TAFFC.2017.2740923.'
+
 ### Tasks of this project:
 
 [1] Implement live video emotion guessing discrete
 
-[2] Extent code to guess the continuous values of the circumplex model of affect
+[2] Extend code to guess the continuous values of the circumplex model of affect
 
 [3] Test model performance on AffectNet and EMOTIC
 
-[3] Adapt live code to recognize emotions from multiple faces at the same time and the seat they are sitting in (Seat 1, 2 or 3)
-
-[4] Live test emotion recognition on persons watching a video
+[4] Live test emotion recognition
 
 [5] Research methods for validating and improving results for future work
