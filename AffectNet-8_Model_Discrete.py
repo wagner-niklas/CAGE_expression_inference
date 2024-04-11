@@ -36,7 +36,7 @@ for exp_value in range(8):
 
 # Set parameters
 BATCHSIZE = 128
-NUM_EPOCHS = 10
+NUM_EPOCHS = 20
 LR = 5e-5
 #ADAMW_WEIGHT_DECAY = 0.1 # For efficientnet only
 MODEL = models.maxvit_t(weights='DEFAULT')
