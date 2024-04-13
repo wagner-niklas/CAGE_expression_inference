@@ -11,7 +11,7 @@ CAGE: Circumplex Affect Guided Expression Inference
 Understanding expressions and emotions is a task of interest across multiple disciplines, especially for improving user experiences. Contrary to the common perception, it has been shown that expressions are not discrete entities but instead exist along a continuum. People understand discrete expressions differently due to a variety of factors, including cultural background, individual experiences and cognitive biases. Therefore, most approaches to expression understanding, particularly those relying on discrete categories, are inherently biased. In this paper, we present a comparative indepth analysis of two common datasets (AffectNet and EMOTIC) equipped with the components of the circumplex model of affect. Further, we propose a model for prediction of facial expression tailored for lightweight applications. Using a small-scaled MaxViT-based model architecture, we evaluate the impact of discrete expression category labels in training with the continuous valence and arousal labels. We show that considering valence and arousal in addition to discrete category labels helps to significantly improve expression prediction. The proposed model outperforms the current state-of-the-art models on AffectNet, establishing it as the best-performing model for inferring valence and arousal achieving a 7% lower RMSE.
 
 ### Model inference on a video: 
-![](https://github.com/wagner-niklas/KIT_FacialEmotionRecognition/blob/main/Honnold_AffectNet7VA_short.gif)
+![](https://github.com/wagner-niklas/KIT_FacialEmotionRecognition/blob/main/Honnold_inference.gif)
 
 
 ### Usage:
