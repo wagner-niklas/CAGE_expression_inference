@@ -9,17 +9,11 @@ CAGE: Circumplex Affect Guided Expression Inference
 
 	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/cage-circumplex-affect-guided-expression/arousal-estimation-on-affectnet)](https://paperswithcode.com/sota/arousal-estimation-on-affectnet?p=cage-circumplex-affect-guided-expression)
-	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/cage-circumplex-affect-guided-expression/valence-estimation-on-affectnet)](https://paperswithcode.com/sota/valence-estimation-on-affectnet?p=cage-circumplex-affect-guided-expression)
-	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/cage-circumplex-affect-guided-expression/dominance-estimation-on-emotic)](https://paperswithcode.com/sota/dominance-estimation-on-emotic?p=cage-circumplex-affect-guided-expression)
-	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/cage-circumplex-affect-guided-expression/arousal-estimation-on-emotic)](https://paperswithcode.com/sota/arousal-estimation-on-emotic?p=cage-circumplex-affect-guided-expression)
-	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/cage-circumplex-affect-guided-expression/valence-estimation-on-emotic)](https://paperswithcode.com/sota/valence-estimation-on-emotic?p=cage-circumplex-affect-guided-expression)
-	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/cage-circumplex-affect-guided-expression/emotion-recognition-on-emotic)](https://paperswithcode.com/sota/emotion-recognition-on-emotic?p=cage-circumplex-affect-guided-expression)
-	
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/cage-circumplex-affect-guided-expression/facial-expression-recognition-on-affectnet)](https://paperswithcode.com/sota/facial-expression-recognition-on-affectnet?p=cage-circumplex-affect-guided-expression)
 
 ### Abstract: 
