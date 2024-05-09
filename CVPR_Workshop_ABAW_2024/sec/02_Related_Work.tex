@@ -1,0 +1,77 @@
+\section{Related Work}
+\label{sec:relatedwork}
+
+% In this chapter, we go into the existing research and methodologies relevant to emotion guessing via facial expressions. 
+In the field of affective computing, in particular expression inference, the integration of \val{}/\aro{} regression with discrete emotion classification has emerged as a promising approach to enhance the performance and applicability across diverse datasets. In the following, we discuss existing works in this domain.
+
+\subsection{Datasets for Expression Inference}
+
+In the domain of expression inference, several datasets exist. However, these datasets vary significantly in both the data they offer and their popularity.
+Among the most widely used datasets are FER2013~\cite{goodfellow_challenges_2013} and FERPlus~\cite{barsoum_training_2016}, which provide annotated 48$\times$48 pixel black-and-white facial images classified in seven (FER) or eight (FER+) discrete emotional states. 
+% While these datasets have contributed significantly to the advancement of emotion state research, they may have limitations in capturing the complexity and nuances of human emotions due to limited data labeling. In our approach, we have therefore chosen the \affectnet{}~\cite{mollahosseini2017affectnet} and \emotic{}~\cite{emotic_pami2019} datasets. 
+While these datasets have been the foundation for numerous research contributions, they have been expanded in various ways over the past years. Notable examples in this context are the \emotic{}~\cite{kosti_emotic_2017} and \affectnet{}~\cite{mollahosseini2017affectnet} datasets, which both contain high-resolution RGB images.
+\affectnet{} is a large-scale database containing around 0.4 million facial images labeled by 12 annotators. Each image is annotated with categorical emotions, mirroring those used in the FER+ dataset, in addition to \va{}  values. This approach offers a more refined representation of emotions compared to categorical labels only. 
+
+The \emotic{} (\textit{Emotions in Context}) dataset provides a more nuanced perspective on affective states. Unlike earlier datasets focused solely on facial expressions, \emotic{} captures individuals in full-body shots within their surrounding context. \emotic{}  features bounding boxes that encompass each individual's entire body, eliminating the need for a visible face. Furthermore, it categorizes emotions into 26 discrete categories, allowing for multiple labels per individual. In addition, the dataset expands these discrete values with continuous measures of \va{} as well as \dom{} that measures the level of control a person feels during a situation, ranging from submissive / non-control to dominant / in-control~\cite{emotic_pami2019}. 
+
+While there are at least 28 datasets such as CK+~\cite{5543262}, RAF-DB~\cite{Li_2017_CVPR} or Aff-Wild2~\cite{kollias2023abaw2, kollias2023multi, kollias2022abaw, kollias2023abaw, kollias2021analysing, kollias2021affect, kollias2021distribution, kollias2020analysing, kollias_expression_2019, kollias2019deep, kollias2019face, zafeiriou2017aff, kollias2019affwild2} focusing specifically on \textit{facial expression recognition/inference} featuring continuous and/or discrete measures, we chose to focus on the two mentioned above, since we are interested in both discrete emotion labeling on an individual basis as well as continuous measures of \va{}.
+\affectnet{}~\cite{mollahosseini2017affectnet} as a state-of-the-art, is arguably the most represented dataset in the current research field. 
+On the other hand, \emotic{}, although not being the most utilized dataset, offers the most refined representation of measures while still focusing on a combination of discrete and continuous variables to define individuals emotion.
+% Außerdem hier noch Related work angeben was schon gemacht wurde im Sinne vergleich? Gibt es Paper die unser Thema schon genauer anschauen? Gibt es Vergleich zwischen den Datensätzen oder zwischen FER und den einzelnen?! Hier einbinden 
+% Elicit research machen
+
+\begin{table}[t]
+\centering
+\begin{tabular}{r | c  | c }
+\hline
+\textbf{Method} & \textbf{Accuracy [\%]} & \textbf{Date [mm-yy]} \\
+\hline
+DDAMFN~\cite{electronics12173595} & 64.25 & 08-23  \\
+POSTER++~\cite{mao2023poster} &63.77 & 01-23   \\
+S2D~\cite{chen2023static}&63.06 & 12-22   \\
+MT EffNet-B2~\cite{9815154} & 63.03 & 07-22   \\
+MT-ArcRes~\cite{kollias_expression_2019} & 63.00 & 09-19   \\ \hline
+\end{tabular}
+\caption{Top five models on \affectnet{}-8 benchmark~\cite{paperswithcodeaff}.}
+\label{tab:relatedworkaffectnet8}
+\end{table}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{r | c  | c }
+\hline
+\textbf{Method} & \textbf{Accuracy [\%]} & \textbf{Date [mm-yy]} \\
+\hline
+S2D~\cite{chen2023static}&67.62 & 12-22   \\
+POSTER++~\cite{mao2023poster} &67.49 & 01-23   \\
+DDAMFN~\cite{electronics12173595} & 67.03 & 08-23  \\
+Emo\affectnet{}~\cite{RYUMINA2022435} & 66.49 & 12-22  \\
+Emotion-GCN~\cite{Antoniadis_2021} & 66.46 & 07-21 \\\hline
+\end{tabular}
+\caption{Top five models on \affectnet{}-7 benchmark~\cite{paperswithcodeaff}.}
+\label{tab:relatedworkaffectnet7}
+\end{table}
+
+\subsection{Expression Inference Models}
+
+Expression inference on datasets like \affectnet{} has been addressed in numerous publications. 
+According to Paperswithcode~\cite{paperswithcodeaff}, 207 \affectnet{}-related papers have been published since 2020. Tables~\ref{tab:relatedworkaffectnet8} and~\ref{tab:relatedworkaffectnet7} show five best models in leaderboards for the \affectnet{}-8 and \affectnet{}-7 test benchmark as of 01.01.2024. As the initial FER dataset does not contain the emotion \textit{Contempt}, there exists also an \affectnet{}-7 benchmark omitting this emotion. 
+So far, the best-performing models for expression inference have been almost exclusively based on convolutional neural networks (CNNs), e.g. ResNet-18~\cite{he2016deep}. Although CNNs are still competitive as shown by Savchenko \etal~\cite{9815154}, more recent architectures like the POSTER++~\cite{mao2023poster} facilitate hybrid facial expression inference via networks that combine CNNs for feature extraction with vision transformer elements for efficient multi-scale feature integration and attention-based cross-fusion, achieving state-of-the-art performance with reduced computational cost.
+Because \emotic{} allows for multiple discrete labels for each individual, a general accuracy score is less applicable. Instead, Khan \etal~\cite{khan2024focusclip} suggests the \textit{top-k accuracy} can provide more insights. Utilizing a multi-modal approach leveraging region of interest heatmaps, a vision encoder, and a text encoder they achieve a top-3 accuracy of 13.73\%. 
+% Far less popular is \emotic{}, cited by 63 papers since 2020 according to Paperswithcode (fig.~\ref{tab:relatedworkemotic})
+% \begin{table}[htbp]
+% \centering
+% \begin{tabular}{r | c  | c }
+% \textbf{Method} & \textbf{mAP} & \textbf{Date [mm-yy]} \\
+% \hline
+% EmotiCon~\cite{mittal2020emoticon} &35.48 &  03-20 \\
+% EmotiCon (GCN)~\cite{mittal2020emoticon} & 32.03 &  03-20 \\
+% Fusion Model 1~\cite{Kosti_2019} & 29.45 &  03-20 \\
+% Fusion Model 2~\cite{Kosti_2019} & 27.70 & 03-20 \\
+% CAER-Net~\cite{Lee_2019_ICCV} & 20.84 & 10-19 \\
+% \end{tabular}
+% \caption{Comparison Top-5 \emotic{} Benchmarks~\cite{paperswithcodeemo} }
+% \label{tab:relatedworkemotic}
+% \end{table}
+Khor Wen Hwooi \etal~\cite{hwooi_deep_2022} suggested to extract features from CNNs and then apply model regression with a CultureNet~\cite{rudovic2018culturenet} for the continuous prediction of affect from facial expression images within the \va{} space. The best results were achieved with DenseNet201~\cite{huang2017densely} for feature extraction. The work demonstrates superior performance in predicting \va{} levels, particularly on the \affectnet{} dataset.
+%The authors highlight their model's ability to generalize across unseen datasets by testing on the Aff-Wild2~\cite{kollias_expression_2019} dataset.

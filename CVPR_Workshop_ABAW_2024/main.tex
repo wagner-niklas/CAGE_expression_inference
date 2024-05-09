@@ -1,0 +1,96 @@
+% CVPR 2024 Paper Template; see https://github.com/cvpr-org/author-kit
+\newcommand{\val}{\textit{valence}}
+\newcommand{\aro}{\textit{arousal}}
+\newcommand{\dom}{\textit{dominance}}
+\newcommand{\Val}{\textit{Valence}}
+\newcommand{\Aro}{\textit{Arousal}}
+\newcommand{\Dom}{\textit{Dominance}}
+\newcommand{\va}{\val{} and \aro{}}
+\newcommand{\VA}{\Val{} and \Aro{}}
+\newcommand{\affectnet}{AffectNet}
+\newcommand{\emotic}{EMOTIC}
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE  - PLEASE UPDATE FOR FINAL VERSION
+\usepackage{cvpr}              % To produce the CAMERA-READY version
+%\usepackage[review]{cvpr}      % To produce the REVIEW version
+% \usepackage[pagenumbers]{cvpr} % To force page numbers, e.g. for an arXiv version
+
+% NW: For long table
+\usepackage{tabularx,booktabs}
+\usepackage[accsupp]{axessibility} % Improves PDF readability for those with disabilities.
+
+% Import additional packages in the preamble file, before hyperref
+\input{preamble}
+
+% It is strongly recommended to use hyperref, especially for the review version.
+% hyperref with option pagebackref eases the reviewers' job.
+% Please disable hyperref *only* if you encounter grave issues, 
+% e.g. with the file validation for the camera-ready version.
+%
+% If you comment hyperref and then uncomment it, you should delete *.aux before re-running LaTeX.
+% (Or just hit 'q' on the first LaTeX run, let it finish, and you should be clear).
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+\usepackage[pagebackref,breaklinks,colorlinks,citecolor=cvprblue]{hyperref}
+
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+\def\paperID{33} % *** Enter the Paper ID here
+\def\confName{CVPR}
+\def\confYear{2024}
+
+%%%%%%%%% TITLE - PLEASE UPDATE
+\title{CAGE: Circumplex Affect Guided Expression Inference}
+
+%%%%%%%%% AUTHORS - PLEASE UPDATE
+% \author{Niklas Wagner\\
+% Karlsruhe Institute of Technology\\
+% {\tt\small uvssk@student.kit.edu}
+% % For a paper whose authors are all at the same institution,
+% % omit the following lines up until the closing ``}''.
+% % Additional authors and addresses can be added with ``\and'',
+% % just like the second author.
+% % To save space, use either the email address or home page, not both
+% \and
+% Felix Mätzler\\
+% Karlsruhe Institute of Technology\\
+% {\tt\small uvian@student.kit.edu}
+% \and
+% Samed R. Vossberg\\
+% Karlsruhe Institute of Technology\\
+% {\tt\small urgfl@student.kit.edu}
+% }
+
+\author{Niklas Wagner$^{1}$$^,$$^*$, Felix Mätzler$^{1}$$^,$$^*$, Samed R. Vossberg$^{1}$$^,$$^*$, Helen Schneider$^{1}$$^*$, Svetlana Pavlitska$^{2}$, \\J. Marius Zöllner$^{1,2}$\\
+\textit{$^{1}$ Karlsruhe Institute of Technology (KIT), Germany}\\
+\textit{$^{2}$ FZI Research Center for Information Technology, Germany} \\
+{\tt\small helen.schneider@kit.edu}\\
+}
+\begin{document}
+\maketitle
+\def\thefootnote{*}\footnotetext{These authors contributed equally to this work}
+\input{sec/00_Abstract}    
+\input{sec/01_Intro}
+% \newpage
+% \clearpage
+\input{sec/02_Related_Work}
+% \newpage
+% \clearpage
+\input{sec/03_Datasets}
+% \newpage
+% \clearpage
+\input{sec/04_Model}
+
+\input{sec/06_Conclusion}
+\newpage
+\clearpage
+{
+    \small
+    \bibliographystyle{ieeenat_fullname}
+    \bibliography{main}
+}
+
+% WARNING: do not forget to delete the supplementary pages from your submission 
+% \input{sec/X_suppl}
+
+\end{document}

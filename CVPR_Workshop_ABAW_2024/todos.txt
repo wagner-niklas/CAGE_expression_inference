@@ -1,0 +1,14 @@
+- The references for Aff-Wild2 database are not right, please use the ones found here:
+https://affective-behavior-analysis-in-the-wild.github.io/6th/index.html - 
+- emotion guessing? facial expression inference
+- cite: Distribution Matching for Multi-Task Learning of Classification Tasks:
+a Large-Scale Study on Faces & Beyond
+- lines 114-119: Aff-Wild2 also contains both discrete categories (7 basic expressions), as well as continuous valence-arousal (it also contains action units)
+- more citations for Aff-Wild2
+- IEEE copyright submiten
+- Repo: https://github.com/wagner-niklas/CAGE-CircumplexAffectGuidedExpressionInference
+
+- results for swin transformer
+
+
+- Subsection 5.1.3

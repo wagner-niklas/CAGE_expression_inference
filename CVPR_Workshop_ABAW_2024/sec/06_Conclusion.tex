@@ -1,0 +1,11 @@
+\section{Conclusion \& Outlook}
+\label{sec:conclusion}
+
+In this paper, we assessed the capability of discrete classifier approaches with multi-task learning models when inferring emotional expressions. 
+We used two prominent datasets tailored for discrete expressions and values based on the circumplex model of affect to train our models. 
+
+\textbf{Firstly}, we have performed in-depth analysis of the datasets. It was observed that while test datasets are often balanced concerning emotional expressions, the balance is not maintained for \va{}. Models trained solely on \va{} tend to minimize errors. Additionally, it is noteworthy to delve into the intricate distribution of the \emotic{} dataset, especially how it varies concerning the number of classes in the train and test sets. 
+
+\textbf{Secondly}, we proposed to use the MaxViT model architecture and described the training and evaluation protocol for both datasets. The proposed approach significantly improved model accuracy. Even in cases of misclassification, the predicted \va{} values often remained accurate. Establishing a threshold for correct prediction of \va{} poses an interesting challenge for future work, as it involves considering factors such as human error and the inherent complexity of emotional expression perception. Furthermore, our model based on \affectnet{} demonstrated robust performance in \va{} estimation via cross-validation. This suggests the potential for it to serve as a well-generalized model. Conversely, the performance of our \emotic{}-based approach was less conclusive, possibly due to insufficient data or other factors. 
+
+In conclusion, our research underscores the effectiveness of continuous value approaches within multi-task learning frameworks for emotional expression inference. Further exploration and refinement of these methodologies could yield even more accurate and robust models in the future.
