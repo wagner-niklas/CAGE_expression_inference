@@ -16,14 +16,13 @@
 If you use this repository or any of its contents please consider citiing our Paper: 
 [CAGE: Circumplex Affect Guided Expression Inference](https://arxiv.org/abs/2404.14975) 
 ```
-@misc{wagner2024cage,
-      title={CAGE: Circumplex Affect Guided Expression Inference}, 
-      author={Niklas Wagner and Felix Mätzler and Samed R. Vossberg and Helen Schneider and Svetlana Pavlitska and J. Marius Zöllner},
-      year={2024},
-      eprint={2404.14975},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
+@InProceedings{Wagner_2024_CVPR,
+    author    = {Wagner, Niklas and M\"atzler, Felix and Vossberg, Samed R. and Schneider, Helen and Pavlitska, Svetlana and Z\"ollner, J. Marius},
+    title     = {CAGE: Circumplex Affect Guided Expression Inference},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+    month     = {June},
+    year      = {2024},
+    pages     = {4683-4692}
 ```
 
 ### Abstract: 
